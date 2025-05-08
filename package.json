@@ -1,19 +1,28 @@
 {
     "scripts": {
-        "dev": "vite",
-        "build": "vite build"
+      "dev": "vite",
+      "build": "vite build"
     },
     "dependencies": {
-        "autoprefixer": "^10.4.2",
-        "postcss": "^8.4.6",
-        "tailwindcss": "^3.0.24",
-        "vite": "^4.0.0"
+      "autoprefixer": "^10.4.2",
+      "postcss": "^8.4.6",
+      "tailwindcss": "^3.0.24",
+      "vite": "^4.0.0",
+      "@wordpress/components": "^29.8.0",
+      "@wordpress/edit-post": "^8.22.0",
+      "@wordpress/plugins": "^7.22.0",
+      "@wordpress/data": "^7.24.0",
+      "@wordpress/element": "^4.24.0",
+      "@wordpress/hooks": "^4.22.0",
+      "@wordpress/block-editor": "^8.19.0",
+      "@wordpress/i18n": "^4.24.0",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0"
     },
     "devDependencies": {
-        "@tailwindcss/typography": "^0.5.16",
-        "@vitejs/plugin-react": "^4.4.1",
-        "react": "^19.1.0",
-        "react-dom": "^19.1.0",
-        "sass": "^1.87.0"
+      "@tailwindcss/typography": "^0.5.16",
+      "@vitejs/plugin-react": "^4.4.1",
+      "sass": "^1.87.0"
     }
-}
+  }
+  

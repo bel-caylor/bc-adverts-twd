@@ -81,22 +81,43 @@ add_action('admin_enqueue_scripts', 'bcad_admin_enqueue_scripts');
 // Enqueue Block Editor Assets for CPT 'advert'
 add_action('enqueue_block_editor_assets', function () {
     global $post;
-    if (!$post || $post->post_type !== 'advert') return;
 
+    // Enqueue your editor script
     wp_enqueue_script(
         'bc-adverts-sidebar',
-        BCAD_PLUGIN_URL . 'build/editor-sidebar.js',
+        plugin_dir_url(__FILE__) . 'build/editor-sidebar.js',
         ['wp-plugins', 'wp-edit-post', 'wp-element', 'wp-components', 'wp-data'],
-        filemtime(BCAD_PLUGIN_PATH . 'build/editor-sidebar.js'),
+        filemtime(plugin_dir_path(__FILE__) . 'build/editor-sidebar.js'),
         true
     );
 
-    wp_localize_script('bc-adverts-sidebar', 'BCAdverts', [
-        'ajax_url' => admin_url('admin-ajax.php'),
-        'nonce' => wp_create_nonce('bc_adverts_nonce'),
-        'post_id' => get_the_ID(),
-    ]);
+    // Ensure only enqueued in the Block Editor and for "advert" post type
+    $post_type = get_post_type($post);
+
+    if ($post_type === 'advert') {
+        wp_localize_script(
+            'bc-adverts-sidebar',
+            'BCAdverts',
+            [
+                'post_id'  => $post->ID ?? null,
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'nonce'    => wp_create_nonce('bc_adverts_nonce')
+            ]
+        );
+    }
 });
+
+
+// add_action('init', function () {
+//     register_post_type('advert', [
+//         'public' => true,
+//         'label'  => 'Adverts',
+//         'show_in_rest' => true,
+//         'supports' => ['title', 'editor', 'custom-fields'],
+//         'rewrite' => ['slug' => 'advert'],
+//     ]);
+// });
+
 
 // Handle AJAX image generation request
 add_action('wp_ajax_bc_generate_advert_image', function () {

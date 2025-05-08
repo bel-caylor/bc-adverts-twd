@@ -18,13 +18,24 @@ export default defineConfig({
                 entryFileNames: '[name].js',
                 chunkFileNames: '[name].js',
                 assetFileNames: '[name].css',
+                globals: {
+                    '@wordpress/plugins': 'wp.plugins',
+                    '@wordpress/edit-post': 'wp.editPost',
+                    '@wordpress/element': 'wp.element',
+                    '@wordpress/components': 'wp.components',
+                    '@wordpress/data': 'wp.data',
+                    'react': 'React',
+                    'react-dom': 'ReactDOM'
+                }
             },
             external: [
                 '@wordpress/plugins',
                 '@wordpress/edit-post',
                 '@wordpress/element',
                 '@wordpress/components',
-                '@wordpress/data'
+                '@wordpress/data',
+                'react',
+                'react-dom'
             ]
         },
         emptyOutDir: true
