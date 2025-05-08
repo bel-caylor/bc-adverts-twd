@@ -2,8 +2,6 @@ import { registerPlugin } from '@wordpress/plugins';
 import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { Button } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-import { Fragment } from '@wordpress/element';
-
 
 const BCAdvertsSidebarPanel = () => {
     const postType = useSelect(select => select('core/editor').getCurrentPostType(), []);

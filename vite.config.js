@@ -10,7 +10,7 @@ export default defineConfig({
             input: {
                 main: 'src/js/main.js',
                 admin: 'src/js/admin.js',
-                'editor-sidebar': 'src/js/editor-sidebar.js',
+                'editor-sidebar': 'src/js/editor-sidebar.jsx',
                 'admin-style': 'src/css/admin.css',
                 'main-style': 'src/css/main.css',
             },
@@ -19,6 +19,13 @@ export default defineConfig({
                 chunkFileNames: '[name].js',
                 assetFileNames: '[name].css',
             },
+            external: [
+                '@wordpress/plugins',
+                '@wordpress/edit-post',
+                '@wordpress/element',
+                '@wordpress/components',
+                '@wordpress/data'
+            ]
         },
         emptyOutDir: true
     },

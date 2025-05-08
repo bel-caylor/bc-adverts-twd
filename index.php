@@ -14,9 +14,6 @@ define('BCAD_PLUGIN_URL', plugin_dir_url(__FILE__));
 // Include core plugin files
 require_once BCAD_PLUGIN_PATH . 'includes/admin.php';
 
-// Initialize Plugin
-add_action('plugins_loaded', ['BCAD_PLUGIN', 'init']);
-
 // Register Scripts and Styles
 function bcad_enqueue_scripts() {
     wp_enqueue_style(
@@ -81,9 +78,9 @@ add_action('enqueue_block_editor_assets', function () {
 
     wp_enqueue_script(
         'bc-adverts-sidebar',
-        TAILWIND_PLUGIN_URL . 'build/editor-sidebar.js',
+        BCAD_PLUGIN_URL . 'build/editor-sidebar.js',
         ['wp-plugins', 'wp-edit-post', 'wp-element', 'wp-components', 'wp-data'],
-        filemtime(TAILWIND_PLUGIN_PATH . 'build/editor-sidebar.js'),
+        filemtime(BCAD_PLUGIN_PATH . 'build/editor-sidebar.js'),
         true
     );
 
@@ -152,4 +149,22 @@ add_action('wp_ajax_bc_generate_advert_image', function () {
 
     set_post_thumbnail($post_id, $attachment_id);
     wp_send_json_success(['url' => $image_url]);
+});
+
+// Register ACF block type for Advert Image
+add_action('acf/init', function () {
+    if (function_exists('acf_register_block_type')) {
+        acf_register_block_type([
+            'name' => 'advert-image',
+            'title' => __('Advert Image'),
+            'description' => __('Displays the Advert title with a background image.'),
+            'render_template' => plugin_dir_path(__FILE__) . 'src/blocks/advert-image.php',
+            'category' => 'formatting',
+            'icon' => 'format-image',
+            'keywords' => ['advert', 'image', 'background'],
+            'post_types' => ['advert'],
+            'mode' => 'preview',
+            'supports' => ['align' => true, 'mode' => false],
+        ]);
+    }
 });
