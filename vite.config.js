@@ -11,8 +11,8 @@ export default defineConfig({
                 main: 'src/js/main.js',
                 admin: 'src/js/admin.js',
                 'editor-sidebar': 'src/js/editor-sidebar.jsx',
-                'admin-style': 'src/css/admin.css',
-                'main-style': 'src/css/main.css',
+                'admin-style': 'src/scss/admin.scss',
+                'main-style': 'src/scss/main.scss',
             },
             output: {
                 entryFileNames: '[name].js',
@@ -30,6 +30,14 @@ export default defineConfig({
         emptyOutDir: true
     },
     css: {
+        preprocessorOptions: {
+            scss: {
+                additionalData: '',
+                includePaths: [
+                    path.resolve(__dirname, 'src/scss')
+                ]
+            }
+        },
         postcss: {
             plugins: [
                 require('tailwindcss'),

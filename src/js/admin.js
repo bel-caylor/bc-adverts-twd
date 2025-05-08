@@ -1,4 +1,4 @@
-import '../css/admin.css';
+import '../scss/admin.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
     const button = document.querySelector('#bc-generate-image');

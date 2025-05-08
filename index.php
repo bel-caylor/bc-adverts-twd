@@ -38,12 +38,19 @@ add_action('wp_enqueue_scripts', 'bcad_enqueue_scripts');
 function bcad_admin_enqueue_scripts($hook) {
     global $post;
 
-    wp_enqueue_style(
-        'tailwind-admin-css',
-        BCAD_PLUGIN_URL . 'build/admin.css',
-        [],
-        filemtime(BCAD_PLUGIN_PATH . 'build/admin.css')
-    );
+    $admin_css_path = BCAD_PLUGIN_PATH . 'build/admin.css';
+    $admin_css_url = BCAD_PLUGIN_URL . 'build/admin.css';
+    
+    if (file_exists($admin_css_path)) {
+        wp_enqueue_style(
+            'tailwind-admin-css',
+            $admin_css_url,
+            [],
+            filemtime($admin_css_path)
+        );
+    } else {
+        error_log("🚨 Warning: Admin CSS not found at $admin_css_path");
+    }    
 
     wp_enqueue_script(
         'tailwind-admin-js',

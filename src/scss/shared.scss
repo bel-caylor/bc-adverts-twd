@@ -1,0 +1,46 @@
+.bc-advert-wrapper {
+  .advert {
+    @apply flex justify-center items-center min-h-[80vh] mx-10;
+
+    > .wrap {
+      @apply flex flex-col bg-white rounded-2xl mx-auto items-center justify-between;
+
+      @screen md {
+        @apply flex-row;
+      }
+    }
+  }
+
+  .advert-image-section {
+    @apply bg-gray-100 aspect-[4/5] w-full min-w-[40%] bg-no-repeat;
+  }
+
+  .advert-content-section {
+    @apply my-10 text-center px-6;
+
+    h3 {
+      @apply text-center text-gray-800 font-medium my-2;
+    }
+
+    h4 {
+      @apply text-center text-gray-600 font-medium my-2;
+    }
+
+    p {
+      @apply text-gray-500 my-2;
+    }
+  }
+
+  .info-long {
+    @apply prose max-w-none text-left mx-auto;
+  }
+
+  .sign-up-form {
+    @apply mt-6;
+  }
+
+  .share-buttons {
+    @apply mt-4;
+  }
+}
+  

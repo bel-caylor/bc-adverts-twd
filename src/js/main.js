@@ -1,4 +1,4 @@
-import '../css/main.css';
+import '../scss/main.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Main JS Loaded');
