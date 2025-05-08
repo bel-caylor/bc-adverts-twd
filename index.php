@@ -158,6 +158,7 @@ add_action('wp_ajax_bc_generate_advert_image', function () {
     wp_send_json_success(['url' => $image_url]);
 });
 
+
 // Register ACF block type for Advert Image
 add_action('acf/init', function () {
     if (function_exists('acf_register_block_type')) {

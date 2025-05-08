@@ -6,3 +6,13 @@
 body {
     @apply bg-transparent;
 }
+
+.acf-block-preview {
+    .advert {
+        @apply min-h-0
+    }
+}
+
+:root :where(.editor-styles-wrapper)::after {
+    height: 40px !important;
+}
