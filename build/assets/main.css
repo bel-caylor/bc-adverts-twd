@@ -642,6 +642,10 @@ video {
 .font-bold {
   font-weight: 700;
 }
+.\!text-white {
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1)) !important;
+}
 .underline {
   text-decoration-line: underline;
 }
@@ -679,6 +683,10 @@ video {
   .advert > .wrapper {
     flex-direction: row !important;
   }
+}
+.advert .ad-image {
+  height: 1350px;
+  width: 1080px;
 }
 .advert-background {
   background-image: var(--bcad-bg-url, none);
@@ -1173,4 +1181,14 @@ video {
 }
 .advert .share-buttons {
   margin-top: 1rem;
+}
+
+.single-content .advert .ad-image {
+  height: auto;
+  width: auto;
+}
+
+.acf-block-preview .advert .ad-image {
+  height: auto;
+  width: auto;
 }

@@ -63,18 +63,18 @@ echo '<div class="advert">';
             if ($image_placement === 'full_overlay') {
                 echo '<div class="advert-background" style="background-image: url(' . $background_image . ');">';
                 echo '<div class="overlay-text ' . $tailwind_placement . '">';
-                echo '<h1>' . esc_html($title) . '</h1>';
+                echo '<h2 class="!text-white">' . esc_html($title) . '</h2>';
                 echo '<p>' . esc_html($date_time_text) . '</p>';
                 echo '</div></div>';
             } elseif ($image_placement === 'top_contain') {
                 echo '<div class="image-top">';
                     echo '<img src="' . $background_image . '" alt="">';
-                    echo '<h1>' . esc_html($title) . '</h1>';
+                    echo '<h2>' . esc_html($title) . '</h2>';
                     echo '<p>' . esc_html($date_time_text) . '</p>';
                 echo '</div>';
             } elseif ($image_placement === 'bottom_contain') {
                 echo '<div class="image-bottom">';
-                    echo '<h1>' . esc_html($title) . '</h1>';
+                    echo '<h2>' . esc_html($title) . '</h2>';
                     echo '<p>' . esc_html($date_time_text) . '</p>';
                     echo '<img src="' . $background_image . '" alt="">';
                 echo '</div>';
@@ -91,8 +91,8 @@ echo '<div class="advert">';
         if ($words_on_image) {
             echo '<div class="advert-content">' . $info_long . '</div>';
         } else {
-            echo '<h1>' . esc_html($title) . '</h1>';
-            echo '<h2>' . esc_html($subtitle) . '</h2>';
+            echo '<h2>' . esc_html($title) . '</h2>';
+            echo '<h3>' . esc_html($subtitle) . '</h3>';
             echo '<p>' . esc_html($date_time_text) . '</p>';
             echo '<div class="advert-content">' . $info_long . '</div>';
         }

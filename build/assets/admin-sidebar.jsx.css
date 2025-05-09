@@ -606,6 +606,9 @@ video {
   line-height: 2.25rem;
 }.font-bold {
   font-weight: 700;
+}.\!text-white {
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1)) !important;
 }.underline {
   text-decoration-line: underline;
 }.line-through {
@@ -635,7 +638,10 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }@media (min-width: 768px){.advert>.wrapper {
     flex-direction: row !important;
-  }}.advert-background{background-image:var(--bcad-bg-url, none);position: relative;height: 100%;width: 100%;overflow: hidden;border-radius: 1rem;background-size: cover;background-position: center}.advert .image-top img,.advert .image-bottom img{background-image:var(--bcad-bg-url, none)}.advert .overlay-text {
+  }}.advert .ad-image {
+  height: 1350px;
+  width: 1080px;
+}.advert-background{background-image:var(--bcad-bg-url, none);position: relative;height: 100%;width: 100%;overflow: hidden;border-radius: 1rem;background-size: cover;background-position: center}.advert .image-top img,.advert .image-bottom img{background-image:var(--bcad-bg-url, none)}.advert .overlay-text {
   position: absolute;
   padding: 1rem;
   text-align: center;
@@ -1017,6 +1023,12 @@ video {
   margin-top: 1.5rem;
 }.advert .share-buttons {
   margin-top: 1rem;
+}.single-content .advert .ad-image {
+  height: auto;
+  width: auto;
+}.acf-block-preview .advert .ad-image {
+  height: auto;
+  width: auto;
 }body {
   background-color: transparent;
 }.acf-block-preview .advert {
