@@ -9,7 +9,12 @@
     }
   }
   &-background {
+    background-image: var(--bcad-bg-url, none);
     @apply relative w-full h-full bg-cover bg-center rounded-2xl overflow-hidden;
+  }
+  .image-top img,
+  .image-bottom img {
+    background-image: var(--bcad-bg-url, none);
   }
   .overlay-text {
     @apply absolute text-white text-center p-4;

@@ -3,7 +3,7 @@
 Plugin Name: BC Adverts TWD
 Description: Custom adverts and image generator.
 Version: 1.0.0
-Author: Your Name
+Author: Belinda Caylor
 */
 
 // Define Plugin Path Constants
@@ -15,115 +15,93 @@ if (!defined('BCAD_PLUGIN_URL')) {
     define('BCAD_PLUGIN_URL', plugin_dir_url(__FILE__));
 }
 
-// Register Frontend Scripts and Styles
-function bcad_enqueue_scripts() {
-    $main_css_path = BCAD_PLUGIN_PATH . 'build/assets/main.css';
-    $main_css_url = BCAD_PLUGIN_URL . 'build/assets/main.css';
-    $main_js_path = BCAD_PLUGIN_PATH . 'build/assets/main.js';
-    $main_js_url = BCAD_PLUGIN_URL . 'build/assets/main.js';
+function bcad_enqueue_assets() {
+    global $pagenow, $post;
 
-    // Main CSS
-    if (file_exists($main_css_path)) {
-        wp_enqueue_style(
-            'bcad-main-css',
-            $main_css_url,
-            [],
-            filemtime($main_css_path)
-        );
-    } else {
-        error_log("🚨 Warning: Main CSS not found at $main_css_path");
+    // Only on post edit/new screens, and only for our ‘advert’ CPT
+    $is_post_screen = in_array( $pagenow, [ 'post.php', 'post-new.php' ], true );
+    if ( ! $is_post_screen || get_post_type( $post ) !== 'advert' ) {
+        return;
     }
 
-    // Main JS
-    if (file_exists($main_js_path)) {
-        wp_enqueue_script(
-            'bcad-main-js',
-            $main_js_url,
-            [],
-            filemtime($main_js_path),
-            true
-        );
-    } else {
-        error_log("🚨 Warning: Main JS not found at $main_js_path");
-    }
+    $handle    = 'bcad-admin';
+    $script    = BCAD_PLUGIN_URL . 'build/assets/admin.js';
+    $style     = BCAD_PLUGIN_URL . 'build/assets/admin.css';
+    $version   = filemtime( BCAD_PLUGIN_PATH . 'build/assets/admin.js' );
+
+    // 1) Register your combined bundle with the proper WP deps
+    wp_register_script(
+        $handle,
+        $script,
+        [ 'wp-plugins','wp-edit-post','wp-element','wp-data','wp-components' ],
+        $version,
+        true
+    );
+
+    // 2) Localize / inline our PHP data *before* the bundle executes
+    $data = [
+        'ajax_url'        => admin_url( 'admin-ajax.php' ),
+        'post_id'         => $post->ID,
+        'nonce'           => wp_create_nonce( 'bc_adverts_nonce' ),
+        'css_url'         => BCAD_PLUGIN_URL . 'build/assets/admin.css',
+        'wrapperSelector' => '.ad-image',
+    ];
+
+    // You can use either wp_localize_script() or wp_add_inline_script():
+    wp_add_inline_script( 
+        $handle, 
+        'window.BCAdverts = ' . wp_json_encode( $data ) . ';', 
+        'before' 
+    );
+
+    // 3) Finally enqueue script + style
+    wp_enqueue_script( $handle );
+    wp_enqueue_style( 
+        'bcad-admin-css', 
+        $style, 
+        [], 
+        filemtime( BCAD_PLUGIN_PATH . 'build/assets/admin.css' ) 
+    );
 }
-add_action('wp_enqueue_scripts', 'bcad_enqueue_scripts');
+// hook for classic editor screens
+add_action( 'admin_enqueue_scripts', 'bcad_enqueue_assets' );
+// hook for the block editor (Gutenberg) sidebar
+add_action( 'enqueue_block_editor_assets', 'bcad_enqueue_assets' );
+
 
 
 // Register Admin Scripts and Styles
 function bcad_admin_enqueue_scripts($hook) {
     global $post;
 
-    $admin_css_path = BCAD_PLUGIN_PATH . 'build/assets/admin.css';
-    $admin_css_url = BCAD_PLUGIN_URL . 'build/assets/admin.css';
-    $admin_js_path = BCAD_PLUGIN_PATH . 'build/assets/admin.js';
-    $admin_js_url = BCAD_PLUGIN_URL . 'build/assets/admin.js';
-    $sidebar_js_path = BCAD_PLUGIN_PATH . 'build/assets/editor-sidebar.js';
-    $sidebar_js_url = BCAD_PLUGIN_URL . 'build/assets/editor-sidebar.js';
-
-    // Admin CSS
-    if (file_exists($admin_css_path)) {
-        wp_enqueue_style(
-            'bcad-admin-css',
-            $admin_css_url,
-            [],
-            filemtime($admin_css_path)
-        );
-    } else {
-        error_log("🚨 Warning: Admin CSS not found at $admin_css_path");
+    if ( ! in_array($hook, ['post.php','post-new.php'], true) || get_post_type($post) !== 'advert' ) {
+        return;
     }
 
-    // Admin JS
-    if (file_exists($admin_js_path)) {
-        wp_enqueue_script(
-            'bcad-admin-js',
-            $admin_js_url,
-            ['jquery'],
-            filemtime($admin_js_path),
-            true
-        );
-    } else {
-        error_log("🚨 Warning: Admin JS not found at $admin_js_path");
-    }
+    // your existing BCAdverts data
+    wp_localize_script('bcad-admin', 'BCAdverts', [
+        'ajax_url'        => admin_url('admin-ajax.php'),
+        'post_id'         => $post->ID,
+        'nonce'           => wp_create_nonce('bc_adverts_nonce'),
+        'css_url'         => BCAD_PLUGIN_URL . 'build/assets/admin.css',
+        'wrapperSelector' => get_option('bc_adverts_wrapper_selector'), // if you have one
+    ]);
 
-    // Sidebar JS
-    if (file_exists($sidebar_js_path)) {
-        wp_enqueue_script(
-            'bcad-sidebar-js',
-            $sidebar_js_url,
-            ['wp-plugins', 'wp-edit-post', 'wp-element', 'wp-components', 'wp-data'],
-            filemtime($sidebar_js_path),
-            true
-        );
-    } else {
-        error_log("🚨 Warning: Sidebar JS not found at $sidebar_js_path");
-    }
-
-    // Enqueue Advert-specific scripts
-    if (($hook === 'post.php' || $hook === 'post-new.php') && $post && $post->post_type === 'advert') {
-        $generator_js_path = BCAD_PLUGIN_PATH . 'build/assets/generator.js';
-        $generator_js_url = BCAD_PLUGIN_URL . 'build/assets/generator.js';
-
-        if (file_exists($generator_js_path)) {
-            wp_enqueue_script(
-                'bc-adverts-image-generator',
-                $generator_js_url,
-                ['jquery'],
-                filemtime($generator_js_path),
-                true
-            );
-
-            wp_localize_script('bc-adverts-image-generator', 'BCAdverts', [
-                'ajax_url' => admin_url('admin-ajax.php'),
-                'nonce' => wp_create_nonce('bc_adverts_nonce'),
-                'post_id' => get_the_ID(),
-            ]);
-        } else {
-            error_log("🚨 Warning: Image Generator JS not found at $generator_js_path");
-        }
-    }
+    wp_enqueue_script(
+        'bcad-admin',
+        BCAD_PLUGIN_URL . 'build/assets/admin.js',
+        [ 'wp-plugins','wp-edit-post','wp-element','wp-data','wp-components' ],
+        filemtime( BCAD_PLUGIN_PATH . 'build/assets/admin.js' )
+    );
+    wp_enqueue_style(
+        'bcad-admin-css',
+        BCAD_PLUGIN_URL . 'build/assets/admin.css',
+        [],
+        filemtime( BCAD_PLUGIN_PATH . 'build/assets/admin.css' )
+    );
 }
 add_action('admin_enqueue_scripts', 'bcad_admin_enqueue_scripts');
+
 
 
 // Enqueue Block Editor Assets for CPT 'advert'

@@ -30,6 +30,9 @@ if (is_array($background_image)) {
 } else {
     $background_image = '';
 }
+$inline_bg = $background_image
+  ? '--bcad-bg-url: url(' . esc_url( $background_image ) . ');'
+  : '';
 
 // Map word_placement to Tailwind classes
 $tailwind_placement = match ($word_placement) {
@@ -46,14 +49,15 @@ ob_start();
 // Display Editor Overlay
 if (is_admin()) {
     echo '<div class="editor-overlay w-full bg-red-700 py-4 mb-2">';
-    echo '<p class="text-center text-white font-bold">Changes to Advert fields require a Save and Refresh to update the block.</p>';
+    echo '<button id="bcad-generate-btn" class="button button-primary" style="margin-left:1em;">Generate Image</button>';
     echo '</div>';
+    echo '<div id="bc-image-output"></div>';
 }
 echo '<div class="advert">';
     echo '<div class="wrapper">';
 
         // Advert Image Section
-        echo '<div class="advert-image-section">';
+        echo '<div class="advert-image-section ad-image">';
         if ($words_on_image) {
             // Words on Image Logic
             if ($image_placement === 'full_overlay') {
