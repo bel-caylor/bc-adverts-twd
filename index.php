@@ -1,122 +1,171 @@
 <?php
 /*
-Plugin Name: Hope Church Adverts, Events, and Signups
-Description: Streamlines advert/event creation with FB image generation and sign-up form handling.
-Version: 1.0
-Author: Belinda Caylor
+Plugin Name: BC Adverts TWD
+Description: Custom adverts and image generator.
+Version: 1.0.0
+Author: Your Name
 */
 
-if (!defined('ABSPATH')) exit; // Exit if accessed directly
-
-define('BCAD_PLUGIN_PATH', plugin_dir_path(__FILE__));
-define('BCAD_PLUGIN_URL', plugin_dir_url(__FILE__));
-
-// Include core plugin files
-require_once BCAD_PLUGIN_PATH . 'includes/admin.php';
-
-// Register Scripts and Styles
-function bcad_enqueue_scripts() {
-    wp_enqueue_style(
-        'tailwind-css',
-        BCAD_PLUGIN_URL . 'build/main.css',
-        [],
-        filemtime(BCAD_PLUGIN_PATH . 'build/main.css')
-    );
-
-    wp_enqueue_script(
-        'tailwind-js',
-        BCAD_PLUGIN_URL . 'build/main.js',
-        [],
-        filemtime(BCAD_PLUGIN_PATH . 'build/main.js'),
-        true
-    );
+// Define Plugin Path Constants
+if (!defined('BCAD_PLUGIN_PATH')) {
+    define('BCAD_PLUGIN_PATH', plugin_dir_path(__FILE__));
 }
 
+if (!defined('BCAD_PLUGIN_URL')) {
+    define('BCAD_PLUGIN_URL', plugin_dir_url(__FILE__));
+}
+
+// Register Frontend Scripts and Styles
+function bcad_enqueue_scripts() {
+    $main_css_path = BCAD_PLUGIN_PATH . 'build/assets/main.css';
+    $main_css_url = BCAD_PLUGIN_URL . 'build/assets/main.css';
+    $main_js_path = BCAD_PLUGIN_PATH . 'build/assets/main.js';
+    $main_js_url = BCAD_PLUGIN_URL . 'build/assets/main.js';
+
+    // Main CSS
+    if (file_exists($main_css_path)) {
+        wp_enqueue_style(
+            'bcad-main-css',
+            $main_css_url,
+            [],
+            filemtime($main_css_path)
+        );
+    } else {
+        error_log("🚨 Warning: Main CSS not found at $main_css_path");
+    }
+
+    // Main JS
+    if (file_exists($main_js_path)) {
+        wp_enqueue_script(
+            'bcad-main-js',
+            $main_js_url,
+            [],
+            filemtime($main_js_path),
+            true
+        );
+    } else {
+        error_log("🚨 Warning: Main JS not found at $main_js_path");
+    }
+}
 add_action('wp_enqueue_scripts', 'bcad_enqueue_scripts');
 
-// Admin Scripts
+
+// Register Admin Scripts and Styles
 function bcad_admin_enqueue_scripts($hook) {
     global $post;
 
-    $admin_css_path = BCAD_PLUGIN_PATH . 'build/admin.css';
-    $admin_css_url = BCAD_PLUGIN_URL . 'build/admin.css';
-    
+    $admin_css_path = BCAD_PLUGIN_PATH . 'build/assets/admin.css';
+    $admin_css_url = BCAD_PLUGIN_URL . 'build/assets/admin.css';
+    $admin_js_path = BCAD_PLUGIN_PATH . 'build/assets/admin.js';
+    $admin_js_url = BCAD_PLUGIN_URL . 'build/assets/admin.js';
+    $sidebar_js_path = BCAD_PLUGIN_PATH . 'build/assets/editor-sidebar.js';
+    $sidebar_js_url = BCAD_PLUGIN_URL . 'build/assets/editor-sidebar.js';
+
+    // Admin CSS
     if (file_exists($admin_css_path)) {
         wp_enqueue_style(
-            'tailwind-admin-css',
+            'bcad-admin-css',
             $admin_css_url,
             [],
             filemtime($admin_css_path)
         );
     } else {
         error_log("🚨 Warning: Admin CSS not found at $admin_css_path");
-    }    
+    }
 
-    wp_enqueue_script(
-        'tailwind-admin-js',
-        BCAD_PLUGIN_URL . 'build/admin.js',
-        ['jquery'],
-        filemtime(BCAD_PLUGIN_PATH . 'build/admin.js'),
-        true
-    );
-
-    if (($hook === 'post.php' || $hook === 'post-new.php') && $post && $post->post_type === 'advert') {
+    // Admin JS
+    if (file_exists($admin_js_path)) {
         wp_enqueue_script(
-            'bc-adverts-image-generator',
-            BCAD_PLUGIN_URL . 'assets/generator.js',
+            'bcad-admin-js',
+            $admin_js_url,
             ['jquery'],
-            null,
+            filemtime($admin_js_path),
             true
         );
+    } else {
+        error_log("🚨 Warning: Admin JS not found at $admin_js_path");
+    }
 
-        wp_localize_script('bc-adverts-image-generator', 'BCAdverts', [
-            'ajax_url' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('bc_adverts_nonce'),
-            'post_id' => get_the_ID(),
-        ]);
+    // Sidebar JS
+    if (file_exists($sidebar_js_path)) {
+        wp_enqueue_script(
+            'bcad-sidebar-js',
+            $sidebar_js_url,
+            ['wp-plugins', 'wp-edit-post', 'wp-element', 'wp-components', 'wp-data'],
+            filemtime($sidebar_js_path),
+            true
+        );
+    } else {
+        error_log("🚨 Warning: Sidebar JS not found at $sidebar_js_path");
+    }
+
+    // Enqueue Advert-specific scripts
+    if (($hook === 'post.php' || $hook === 'post-new.php') && $post && $post->post_type === 'advert') {
+        $generator_js_path = BCAD_PLUGIN_PATH . 'build/assets/generator.js';
+        $generator_js_url = BCAD_PLUGIN_URL . 'build/assets/generator.js';
+
+        if (file_exists($generator_js_path)) {
+            wp_enqueue_script(
+                'bc-adverts-image-generator',
+                $generator_js_url,
+                ['jquery'],
+                filemtime($generator_js_path),
+                true
+            );
+
+            wp_localize_script('bc-adverts-image-generator', 'BCAdverts', [
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('bc_adverts_nonce'),
+                'post_id' => get_the_ID(),
+            ]);
+        } else {
+            error_log("🚨 Warning: Image Generator JS not found at $generator_js_path");
+        }
     }
 }
 add_action('admin_enqueue_scripts', 'bcad_admin_enqueue_scripts');
 
-// Enqueue Block Editor Assets for CPT 'advert'
-add_action('enqueue_block_editor_assets', function () {
-    global $post;
 
-    // Enqueue your editor script
+// Enqueue Block Editor Assets for CPT 'advert'
+add_action( 'enqueue_block_editor_assets', function() {
+    $js_file   = BCAD_PLUGIN_PATH . 'build/assets/editor-sidebar.js';
+    $asset_php = BCAD_PLUGIN_PATH . 'build/assets/editor-sidebar.asset.php';
+    $css_file  = BCAD_PLUGIN_PATH . 'build/assets/main.css';
+
+    if ( ! file_exists( $js_file ) || ! file_exists( $asset_php ) ) {
+        error_log( "🚨 Missing sidebar build files" );
+        return;
+    }
+
+    // Load JS (as you already have)
+    $asset = include $asset_php;
     wp_enqueue_script(
         'bc-adverts-sidebar',
-        plugin_dir_url(__FILE__) . 'build/editor-sidebar.js',
-        ['wp-plugins', 'wp-edit-post', 'wp-element', 'wp-components', 'wp-data'],
-        filemtime(plugin_dir_path(__FILE__) . 'build/editor-sidebar.js'),
+        BCAD_PLUGIN_URL . 'build/assets/editor-sidebar.js',
+        $asset['dependencies'],
+        $asset['version'],
         true
     );
+    wp_localize_script( 'bc-adverts-sidebar', 'BCAdverts', [
+        'post_id'  => get_the_ID(),
+        'ajax_url' => admin_url( 'admin-ajax.php' ),
+        'nonce'    => wp_create_nonce( 'bc_adverts_nonce' ),
+    ] );
 
-    // Ensure only enqueued in the Block Editor and for "advert" post type
-    $post_type = get_post_type($post);
-
-    if ($post_type === 'advert') {
-        wp_localize_script(
-            'bc-adverts-sidebar',
-            'BCAdverts',
-            [
-                'post_id'  => $post->ID ?? null,
-                'ajax_url' => admin_url('admin-ajax.php'),
-                'nonce'    => wp_create_nonce('bc_adverts_nonce')
-            ]
+    // *** NEW: enqueue the editor styles too ***
+    if ( file_exists( $css_file ) ) {
+        wp_enqueue_style(
+            'bc-adverts-editor-css',
+            BCAD_PLUGIN_URL . 'build/assets/main.css',
+            [], 
+            filemtime( $css_file )
         );
+    } else {
+        error_log( "🚨 Missing editor CSS: $css_file" );
     }
-});
+} );
 
 
-// add_action('init', function () {
-//     register_post_type('advert', [
-//         'public' => true,
-//         'label'  => 'Adverts',
-//         'show_in_rest' => true,
-//         'supports' => ['title', 'editor', 'custom-fields'],
-//         'rewrite' => ['slug' => 'advert'],
-//     ]);
-// });
 
 
 // Handle AJAX image generation request

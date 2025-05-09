@@ -1,1 +1,0 @@
-document.addEventListener("DOMContentLoaded",()=>{console.log("Main JS Loaded");const e=document.createElement("h1");e.className="text-3xl font-bold underline text-center",e.innerText="Hello from Tailwind and Vite!",document.body.appendChild(e)});
