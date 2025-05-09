@@ -4,24 +4,28 @@ import '../scss/admin.scss';
 import { select, dispatch, subscribe } from '@wordpress/data';
 
 function doGenerate() {
-    const sel       = window.BCAdverts.wrapperSelector || '.ad-image';
+    const sel       = window.BCAdverts.wrapperSelector;
     const container = document.querySelector(sel);
     if (!container) {
-      return alert(`❌ Couldn’t find element for selector "${sel}"`);
+      return alert(`❌ Couldn’t find element for selector “${sel}”`);
     }
-    const html = container.outerHTML;
+    const htmlFragment = container.outerHTML;
   
-    fetch(window.BCAdverts.ajax_url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        action:  'bc_generate_advert_image',
-        nonce:   window.BCAdverts.nonce,
-        post_id: window.BCAdverts.post_id,
-        html,
-      }),
-    })
-      .then((r) => r.json())
+    // 1) First grab your CSS
+    fetch(window.BCAdverts.css_url)
+      .then((r) => r.text())
+      .then((cssText) => {
+        // Option A: pass CSS separately
+        const fd = new FormData();
+        fd.append('action',  'bc_generate_advert_image');
+        fd.append('nonce',   window.BCAdverts.nonce);
+        fd.append('post_id', window.BCAdverts.post_id);
+        fd.append('css',     cssText);
+        fd.append('html',    htmlFragment);
+  
+        return fetch(window.BCAdverts.ajax_url, { method: 'POST', body: fd });
+      })
+      .then((res) => res.json())
       .then((json) => {
         if (json.success) {
           alert('✅ Image generated!');
@@ -34,6 +38,7 @@ function doGenerate() {
         alert('❌ Unexpected error');
       });
   }
+  
 
 // 2️⃣ Auto-run after a save+reload
 if (sessionStorage.getItem('bcad_generate_after_save')) {
