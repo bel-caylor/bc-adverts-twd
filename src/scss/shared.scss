@@ -8,9 +8,6 @@
       @apply flex-row !important;
     }
   }
-  .ad-image {
-    @apply h-[1350px] w-[1080px]
-  }
   &-background {
     background-image: var(--bcad-bg-url, none);
     @apply relative w-full h-full bg-cover bg-center rounded-2xl overflow-hidden;
@@ -54,7 +51,9 @@
     @apply mt-4;
   }
 }
-
+.ad-image {
+  @apply h-[1350px] w-[1080px]
+}
 .single-content {
   .advert {
     .ad-image {

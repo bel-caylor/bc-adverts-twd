@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: BC Adverts TWD
+Plugin Name: Hope Church Adverts
 Description: Custom adverts block and image‐generator.
-Version:     1.0.2
+Version:     1.0.3
 Author:      Belinda Caylor
 */
 

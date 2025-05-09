@@ -684,10 +684,6 @@ video {
     flex-direction: row !important;
   }
 }
-.advert .ad-image {
-  height: 1350px;
-  width: 1080px;
-}
 .advert-background {
   background-image: var(--bcad-bg-url, none);
   position: relative;
@@ -1181,6 +1177,11 @@ video {
 }
 .advert .share-buttons {
   margin-top: 1rem;
+}
+
+.ad-image {
+  height: 1350px;
+  width: 1080px;
 }
 
 .single-content .advert .ad-image {

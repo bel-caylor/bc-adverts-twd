@@ -4,7 +4,7 @@
   "license": "GPL-2.0-or-later",
   "scripts": {
     "build:main": "wp-scripts build src/js/main.js --output-path=build/assets --output-filename=main.js",
-    "build:admin": "wp-scripts build src/js/admin-sidebar.jsx --output-path=build/assets --output-filename=admin.js",
+    "build:admin": "wp-scripts build src/js/admin.jsx --output-path=build/assets --output-filename=admin.js",
     "build:css": "sass --load-path=node_modules src/scss/main.scss build/assets/main.css --no-source-map && postcss build/assets/main.css -o build/assets/main.css",
     "build:admin-css": "sass --load-path=node_modules src/scss/admin.scss build/assets/admin.css --no-source-map && postcss build/assets/admin.css -o build/assets/admin.css",
     "build": "npm run build:main && npm run build:admin && npm run build:css && npm run build:admin-css"
