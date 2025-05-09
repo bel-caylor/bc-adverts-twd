@@ -18,6 +18,3 @@ jobs:
         REMOTE_PATH: "wp-content/plugins/bc-adverts-twd/"
         FLAGS: "-azvr --delete"
         CACHE_CLEAR: true
-        SCRIPT: |
-        # make absolutely sure the plugin folder exists
-        mkdir -p wp-content/plugins/bc-adverts-twd
