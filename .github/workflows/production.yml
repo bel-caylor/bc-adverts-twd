@@ -15,6 +15,6 @@ jobs:
         WPE_ENV: hopeisreal
         # Deploy Options
         SRC_PATH: "."
-        REMOTE_PATH: "sites/hopeisrealstg/wp-content/plugins/bc-adverts-twd/"
+        REMOTE_PATH: "wp-content/plugins/bc-adverts-twd/"
         FLAGS: "-azvr --delete"
         CACHE_CLEAR: true
