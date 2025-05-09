@@ -14,5 +14,5 @@ jobs:
         WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }} 
         WPE_ENV: hopeisreal
         # Deploy Options
-        SRC_PATH: "wp-content/plugins/bc-adverts-twd/"
+        SRC_PATH: "."
         REMOTE_PATH: "wp-content/plugins/bc-adverts-twd/"
