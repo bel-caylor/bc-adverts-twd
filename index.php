@@ -168,11 +168,6 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
                 'Content-Type'  => 'application/json',
             ],
             'body'    => wp_json_encode( $body ),
-            // 'json'    => [
-            //     'html'            => $html,
-            //     'viewport_width'  => 1080,
-            //     'viewport_height' => 1350,
-            // ],
         ]
     );
     // Debug logging:
