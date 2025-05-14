@@ -131,8 +131,8 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
         html, body {
             margin: 0; 
             padding: 0; 
-            width: 1080px; 
-            height: 1350px;
+            width: 100%; 
+            height: 100%;
             overflow: hidden;
         }
         .advert-image-section {
