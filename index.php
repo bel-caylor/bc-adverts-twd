@@ -129,13 +129,23 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
     <head>
     <meta charset="utf-8">
     <style>
-            html, body {
-        margin: 0; 
-        padding: 0; 
-        width: 1080px; 
-        height: 1350px;
-        overflow: hidden;
-      }
+        html, body {
+            margin: 0; 
+            padding: 0; 
+            width: 1080px; 
+            height: 1350px;
+            overflow: hidden;
+        }
+        .advert-image-section {
+            position: relative;
+            width: 100%; 
+            height: 100%;
+        }
+        .advert-background,
+        .gradient-overlay {
+            position: absolute;
+            inset: 0;
+        }
     </style>
     <link rel="stylesheet"
     href="' . BCAD_PLUGIN_URL . 'build/assets/main.css">
