@@ -571,29 +571,6 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
 }
-.bg-gradient-to-b{
-  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
-}
-.bg-gradient-to-t{
-  background-image: linear-gradient(to top, var(--tw-gradient-stops));
-}
-.from-black\/80{
-  --tw-gradient-from: rgb(0 0 0 / 0.8) var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(0 0 0 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-.from-transparent{
-  --tw-gradient-from: transparent var(--tw-gradient-from-position);
-  --tw-gradient-to: rgb(0 0 0 / 0) var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-.via-black\/80{
-  --tw-gradient-to: rgb(0 0 0 / 0)  var(--tw-gradient-to-position);
-  --tw-gradient-stops: var(--tw-gradient-from), rgb(0 0 0 / 0.8) var(--tw-gradient-via-position), var(--tw-gradient-to);
-}
-.to-transparent{
-  --tw-gradient-to: transparent var(--tw-gradient-to-position);
-}
 .bg-cover{
   background-size: cover;
 }
@@ -649,9 +626,6 @@ video {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* strongest 0→20%, then fade out */
-  /* mirror for bottom */
-  /* 20% band centered: 40→60% */
 }
 .advert > .wrapper{
   margin-left: auto;
@@ -705,17 +679,6 @@ video {
 .advert-background{
   min-width: 35%;
 }
-.advert-image-section{
-  height: auto;
-  max-height: 100%;
-  width: auto;
-  overflow: auto;
-}
-@media (min-width: 768px){
-  .advert-image-section{
-    max-height: 90vh;
-  }
-}
 .advert-content-section {
   container-type: inline-size;
   margin-top: 2.5rem;
@@ -763,46 +726,6 @@ video {
 .advert-info p {
   font-size: clamp(1rem, 1.5vw, 2rem);
   line-height: 1.5;
-}
-.advert .overlay-text .ad-type,
-.advert .ad-text .ad-type {
-  font-size: clamp(0.6rem, 3cqw, 2rem);
-  margin-top: 0px;
-  margin-bottom: 0px;
-  text-transform: uppercase;
-  --tw-text-opacity: 1 !important;
-  color: rgb(147 197 253 / var(--tw-text-opacity, 1)) !important;
-  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-weight: 700;
-  letter-spacing: 0.1em;
-}
-.advert .overlay-text .ad-type::before, .advert .overlay-text .ad-type::after,
-.advert .ad-text .ad-type::before,
-.advert .ad-text .ad-type::after {
-  content: "----";
-  padding: 1rem;
-  letter-spacing: -0.05em;
-}
-.advert .overlay-text .ad-title,
-.advert .ad-text .ad-title {
-  font-size: clamp(1.5rem, 8cqw, 5.5rem);
-  margin-top: 0px;
-  margin-bottom: 0px;
-  line-height: 1;
-}
-.advert .overlay-text .ad-sub-title,
-.advert .ad-text .ad-sub-title {
-  font-size: clamp(0.8rem, 4cqw, 2.5rem);
-  margin-bottom: 1rem;
-  font-style: italic;
-}
-.advert .overlay-text .ad-date,
-.advert .ad-text .ad-date {
-  font-size: clamp(1rem, 5cqw, 2.7rem);
-}
-.advert .overlay-text > *:not(:last-child),
-.advert .ad-text > *:not(:last-child){
-  margin-bottom: 0.5rem;
 }
 .advert-content{
   display: flex;
@@ -1245,16 +1168,72 @@ video {
 .advert .share-buttons{
   margin-top: 1rem;
 }
-.advert .bg-gradient-top-20 {
+
+.ad-image {
+  /* strongest 0→20%, then fade out */
+  /* mirror for bottom */
+  /* 20% band centered: 40→60% */
+}
+.ad-image.advert-image-section{
+  height: auto;
+  max-height: 100%;
+  width: auto;
+  overflow: auto;
+}
+@media (min-width: 768px){
+  .ad-image.advert-image-section{
+    max-height: 90vh;
+  }
+}
+.ad-image .overlay-text .ad-type,
+.ad-image .ad-text .ad-type {
+  font-size: clamp(0.6rem, 3cqw, 2rem);
+  margin-top: 0px;
+  margin-bottom: 0px;
+  text-transform: uppercase;
+  --tw-text-opacity: 1 !important;
+  color: rgb(147 197 253 / var(--tw-text-opacity, 1)) !important;
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+.ad-image .overlay-text .ad-type::before, .ad-image .overlay-text .ad-type::after,
+.ad-image .ad-text .ad-type::before,
+.ad-image .ad-text .ad-type::after {
+  content: "----";
+  padding: 1rem;
+  letter-spacing: -0.05em;
+}
+.ad-image .overlay-text .ad-title,
+.ad-image .ad-text .ad-title {
+  font-size: clamp(1.5rem, 8cqw, 5.5rem);
+  margin-top: 0px;
+  margin-bottom: 0px;
+  line-height: 1;
+}
+.ad-image .overlay-text .ad-sub-title,
+.ad-image .ad-text .ad-sub-title {
+  font-size: clamp(0.8rem, 4cqw, 2.5rem);
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+.ad-image .overlay-text .ad-date,
+.ad-image .ad-text .ad-date {
+  font-size: clamp(1rem, 5cqw, 2.7rem);
+}
+.ad-image .overlay-text > *:not(:last-child),
+.ad-image .ad-text > *:not(:last-child){
+  margin-bottom: 0.5rem;
+}
+.ad-image .bg-gradient-top-20 {
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.8) 20%, rgba(0, 0, 0, 0) 100%);
 }
-.advert .bg-gradient-bottom-20 {
+.ad-image .bg-gradient-bottom-20 {
   background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.8) 20%, rgba(0, 0, 0, 0) 100%);
 }
-.advert .bg-gradient-middle-20 {
+.ad-image .bg-gradient-middle-20 {
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 40%, rgba(0, 0, 0, 0.8) 60%, rgba(0, 0, 0, 0) 100%);
 }
-
 .ad-image.advert-image-section {
   container-type: inline-size;
   --tw-bg-opacity: 1;
@@ -1262,7 +1241,6 @@ video {
   background-repeat: no-repeat;
   width: 100%;
 }
-
 @media (min-width: 768px){
   .ad-image.advert-image-section{
     width: auto;
@@ -1270,13 +1248,11 @@ video {
     max-width: 50%;
   }
 }
-
 @media (min-width: 1024px){
   .ad-image.advert-image-section{
     aspect-ratio: 4/5;
   }
 }
-
 .ad-image.advert-image-section{
   position: relative;
   display: flex;
