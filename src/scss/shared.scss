@@ -11,7 +11,7 @@
     }
     @apply bg-white rounded-2xl overflow-hidden mx-auto;
     @apply min-w-[95vw] lg:min-w-[80vw] lg:max-h-[80vh];
-    @apply flex flex-col items-stretch justify-between;
+    @apply flex flex-col md:items-stretch justify-between;
     @apply border border-gray-300 shadow-sm;
 
     @screen md {
@@ -24,7 +24,10 @@
   }
 
   &-image-section {
-    @apply h-auto w-auto max-h-[90vh] overflow-auto;
+    & > img {
+      @apply max-h-[30vh]
+    }
+    @apply h-auto w-auto max-h-full md:max-h-[90vh] overflow-auto;
   }
 
   &-content-section {

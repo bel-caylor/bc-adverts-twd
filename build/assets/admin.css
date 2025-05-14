@@ -603,11 +603,11 @@ video {
 .h-0 {
   height: 0px;
 }
+.h-1\/2 {
+  height: 50%;
+}
 .h-6 {
   height: 1.5rem;
-}
-.h-auto {
-  height: auto;
 }
 .h-full {
   height: 100%;
@@ -710,8 +710,15 @@ video {
 .advert > .wrapper {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
   justify-content: space-between;
+}
+@media (min-width: 768px) {
+
+  .advert > .wrapper {
+    align-items: stretch;
+  }
+}
+.advert > .wrapper {
   border-width: 1px;
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
@@ -737,9 +744,18 @@ video {
 }
 .advert-image-section {
   height: auto;
-  max-height: 90vh;
+  max-height: 100%;
   width: auto;
   overflow: auto;
+}
+@media (min-width: 768px) {
+
+  .advert-image-section {
+    max-height: 90vh;
+  }
+}
+.advert-image-section > img {
+  max-height: 30vh;
 }
 .advert-content-section {
   container-type: inline-size;

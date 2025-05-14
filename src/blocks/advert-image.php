@@ -74,7 +74,7 @@ switch ( $word_placement ) {
 $ad_fields_class = $image_placement === 'full_overlay' ? 'overlay-text' : 'ad-text';
 ?>
 <div class="advert <?php echo esc_attr( $block_class ); ?>">
-  <div class="wrapper flex <?php echo esc_attr( $image_placement === 'full_overlay' ? 'flex-col' : 'md:flex-row' ); ?>">
+  <div class="wrapper <?php echo esc_attr( $image_placement === 'full_overlay' ? 'flex-col' : 'md:flex-row' ); ?>">
     
     <?php if ( $bg_url ) : ?>
       <?php if ( $words_on_image ) : ?>
@@ -83,7 +83,7 @@ $ad_fields_class = $image_placement === 'full_overlay' ? 'overlay-text' : 'ad-te
             // Responsive <img> with lazy-loading & alt text
             $img_class = sprintf(
                 'w-full %s object-cover',
-                $image_placement === 'full_overlay' ? 'h-full' : 'h-auto'
+                $image_placement === 'full_overlay' ? 'h-full' : 'h-1/2'
               );
             echo wp_get_attachment_image(
               $bg_id,
