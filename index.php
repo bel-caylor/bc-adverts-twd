@@ -2,7 +2,7 @@
 /*
 Plugin Name: Hope Church Adverts
 Description: Custom adverts block and image‐generator.
-Version:     1.0.3
+Version:     1.0.4
 Author:      Belinda Caylor
 */
 
