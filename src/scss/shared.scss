@@ -17,16 +17,18 @@
     @screen md {
       @apply flex-row !important;
     }
+    &:not(.overlay) .advert-image-section {
+      & > img {
+        @apply max-h-[30vh]
+      }
+    }
   }
 
   &-background {
     @apply min-w-[35%]
   }
-
+  
   &-image-section {
-    & > img {
-      @apply max-h-[30vh]
-    }
     @apply h-auto w-auto max-h-full md:max-h-[90vh] overflow-auto;
   }
 
@@ -146,7 +148,7 @@
   .overlay-text {
     @apply absolute w-full h-full;
     @apply text-white text-center px-4 py-8 font-bold;
-    @apply flex flex-col align-middle bg-black/40;
+    @apply flex flex-col align-middle;
 
     h1, h2, h3, h4, h5, h6 {
       @apply text-white;

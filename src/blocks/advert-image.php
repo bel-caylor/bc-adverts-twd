@@ -56,6 +56,25 @@ if ( is_array( $bg_field ) && ! empty( $bg_field['url'] ) ) {
     $bg_alt = get_the_title( $post_id );
 }
 
+// Background gradient
+switch ( $word_placement ) {
+    case 'top':
+        // strongest at the top, fading down
+        $gradient_class = 'bg-gradient-to-b from-black/80 to-transparent';
+        break;
+
+    case 'bottom':
+        // strongest at the bottom, fading up
+        $gradient_class = 'bg-gradient-to-t from-black/80 to-transparent';
+        break;
+
+    case 'middle':
+    default:
+        // strongest in the center, fading both ways
+        $gradient_class = 'bg-gradient-to-b from-transparent via-black/80 to-transparent';
+        break;
+}
+
 // Map word placement to Tailwind flex classes
 switch ( $word_placement ) {
     case 'top':
@@ -74,11 +93,13 @@ switch ( $word_placement ) {
 $ad_fields_class = $image_placement === 'full_overlay' ? 'overlay-text' : 'ad-text';
 ?>
 <div class="advert <?php echo esc_attr( $block_class ); ?>">
-  <div class="wrapper <?php echo esc_attr( $image_placement === 'full_overlay' ? 'flex-col' : 'md:flex-row' ); ?>">
+  <div class="wrapper <?php echo esc_attr( $image_placement === 'full_overlay' ? 'overlay flex-col' : 'md:flex-row' ); ?>">
     
     <?php if ( $bg_url ) : ?>
       <?php if ( $words_on_image ) : ?>
-        <div class="advert-image-section ad-image <?php echo ($image_placement === 'bottom_contain') ? '!flex-col-reverse' : '' ?>">
+        <div class="advert-image-section ad-image 
+            <?php echo ($image_placement === 'bottom_contain') ? '!flex-col-reverse' : '' ?>"
+        >
           <?php
             // Responsive <img> with lazy-loading & alt text
             $img_class = sprintf(
@@ -97,7 +118,9 @@ $ad_fields_class = $image_placement === 'full_overlay' ? 'overlay-text' : 'ad-te
               ]
             );
           ?>
-          <div class="<?php echo esc_attr( "flex flex-col $ad_fields_class $placement_class items-center text-center p-4" ); ?>">
+          <div class="<?php echo esc_attr( $placement_class . ' ' . $gradient_class ); ?> 
+            <?php echo esc_attr( "flex flex-col $ad_fields_class $placement_class items-center text-center p-4" ); ?>"
+          >
             <?php if ( $type_of_ad ) : ?>
               <h2 class="ad-type uppercase font-bold"><?php echo esc_html( $type_of_ad ); ?></h2>
             <?php endif; ?>
