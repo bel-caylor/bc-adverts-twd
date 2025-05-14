@@ -155,10 +155,9 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
     </html>';
     $body = [ 
         'html' => $html, 
-        'width'  => 1080,
-        'height' => 1350,       
         'viewport_width'  => 1080,
         'viewport_height' => 1350, 
+        'device_scale' => 1,
     ];
     
     $response = wp_remote_post(
