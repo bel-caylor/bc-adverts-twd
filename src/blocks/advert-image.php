@@ -58,18 +58,21 @@ if ( is_array( $bg_field ) && ! empty( $bg_field['url'] ) ) {
 }
 
 // Background gradient
-switch ( $word_placement ) {
-    case 'top':
-      $gradient_class = 'bg-gradient-top-20';
-      break;
-    case 'bottom':
-      $gradient_class = 'bg-gradient-bottom-20';
-      break;
-    case 'middle':
-    default:
-      $gradient_class = 'bg-gradient-middle-20';
-      break;
-  }
+$gradient_class = '';
+if ($image_placement === 'full_overlay') {
+    switch ( $word_placement ) {
+        case 'top':
+          $gradient_class = 'bg-gradient-top-20';
+          break;
+        case 'bottom':
+          $gradient_class = 'bg-gradient-bottom-20';
+          break;
+        case 'middle':
+        default:
+          $gradient_class = 'bg-gradient-middle-20';
+          break;
+      }
+}
   
 
 // Map word placement to Tailwind flex classes

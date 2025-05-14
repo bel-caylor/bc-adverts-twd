@@ -122,7 +122,6 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
     }
 
     // Clean up any <style> tags & build payload
-    // $html = preg_replace( '#<style[^>]*>.*?</style>#is', '', $html );
     $html = '
     <!doctype html>
     <html>
@@ -156,8 +155,8 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
     </html>';
     $body = [ 
         'html' => $html, 
-        'width'  => 1080,
-        'height' => 1350,        
+        'viewport_width'  => 1080,
+        'viewport_height' => 1350,        
     ];
     
     $response = wp_remote_post(
