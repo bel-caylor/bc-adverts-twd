@@ -70,7 +70,6 @@ switch ( $word_placement ) {
       $gradient_class = 'bg-gradient-middle-20';
       break;
   }
-  
 
 // Map word placement to Tailwind flex classes
 switch ( $word_placement ) {
