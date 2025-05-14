@@ -121,27 +121,26 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
         wp_send_json_error( [ 'message' => 'Missing HCTI credentials.' ] );
     }
 
-    $body = [ 
-        'html' => $html, 
-        'css' => $css, 
-        'width'  => 1080,
-        'height' => 1350,        
-    ];
     // Clean up any <style> tags & build payload
     // $html = preg_replace( '#<style[^>]*>.*?</style>#is', '', $html );
     $html = '
     <!doctype html>
     <html>
     <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet"
-            href="' . BCAD_PLUGIN_URL . 'build/assets/main.css">
+    <meta charset="utf-8">
+    <link rel="stylesheet"
+    href="' . BCAD_PLUGIN_URL . 'build/assets/main.css">
     </head>
     <body class="bg-white">
-        ' . $htmlFragment . '
+    ' . $htmlFragment . '
     </body>
     </html>';
-
+    $body = [ 
+        'html' => $html, 
+        'width'  => 1080,
+        'height' => 1350,        
+    ];
+    
     $response = wp_remote_post(
         'https://hcti.io/v1/image',
         [
