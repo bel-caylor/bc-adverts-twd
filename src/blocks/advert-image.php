@@ -60,21 +60,17 @@ if ( is_array( $bg_field ) && ! empty( $bg_field['url'] ) ) {
 // Background gradient
 switch ( $word_placement ) {
     case 'top':
-        // strongest at the top, fading down
-        $gradient_class = 'bg-gradient-to-b from-black/80 to-transparent';
-        break;
-
+      $gradient_class = 'bg-gradient-top-20';
+      break;
     case 'bottom':
-        // strongest at the bottom, fading up
-        $gradient_class = 'bg-gradient-to-t from-black/80 to-transparent';
-        break;
-
+      $gradient_class = 'bg-gradient-bottom-20';
+      break;
     case 'middle':
     default:
-        // strongest in the center, fading both ways
-        $gradient_class = 'bg-gradient-to-b from-transparent via-black/80 to-transparent';
-        break;
-}
+      $gradient_class = 'bg-gradient-middle-20';
+      break;
+  }
+  
 
 // Map word placement to Tailwind flex classes
 switch ( $word_placement ) {

@@ -1089,7 +1089,7 @@ video {
   margin-top: 1.5rem;
 }.advert .share-buttons {
   margin-top: 1rem;
-}.ad-image.advert-image-section{container-type:inline-size;--tw-bg-opacity: 1;background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));background-repeat: no-repeat;width: 100%}@media (min-width: 768px) {
+}.advert .bg-gradient-top-20{background-image:linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.8) 20%, rgba(0, 0, 0, 0) 100%)}.advert .bg-gradient-bottom-20{background-image:linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.8) 20%, rgba(0, 0, 0, 0) 100%)}.advert .bg-gradient-middle-20{background-image:linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 40%, rgba(0, 0, 0, 0.8) 60%, rgba(0, 0, 0, 0) 100%)}.ad-image.advert-image-section{container-type:inline-size;--tw-bg-opacity: 1;background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));background-repeat: no-repeat;width: 100%}@media (min-width: 768px) {
 
   .ad-image.advert-image-section {
     width: auto;
