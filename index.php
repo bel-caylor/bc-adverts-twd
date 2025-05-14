@@ -168,6 +168,9 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
             ],
         ]
     );
+    // Debug logging:
+    error_log( 'HCTI response code: ' . wp_remote_retrieve_response_code( $response ) );
+    error_log( 'HCTI response body: ' . wp_remote_retrieve_body( $response ) );
 
     if ( is_wp_error( $response ) ) {
         wp_send_json_error( [ 'message' => $response->get_error_message() ] );
@@ -175,6 +178,23 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
     $data = json_decode( wp_remote_retrieve_body( $response ), true );
     if ( empty( $data['url'] ) ) {
         wp_send_json_error( [ 'message' => $data['message'] ?? 'Unknown error' ] );
+    }
+
+    // delete any existing advert-{$post_id}.png attachments
+    $attachments = get_posts([
+        'post_type'      => 'attachment',
+        'posts_per_page' => -1,
+        'post_parent'    => $post_id,
+        'post_status'    => 'inherit',
+        'post_mime_type' => 'image/png',
+    ]);
+    
+    foreach ( $attachments as $att ) {
+        $file_path = get_attached_file( $att->ID );
+        if ( basename( $file_path ) === "advert-{$post_id}.png" ) {
+        // true = force delete (bypass trash)
+        wp_delete_attachment( $att->ID, true );
+        }
     }
 
     // Sideload & set featured image…
