@@ -193,6 +193,20 @@ add_action( 'acf/init', function() {
                 'mode' => false
             ],
         ] );
+        acf_register_block_type( [
+            'name'            => 'advert-featured',
+            'title'           => __( 'Advert Featured' ),
+            'render_template' => BCAD_PLUGIN_PATH . 'src/blocks/advert-featured.php',
+            'category'        => 'formatting',
+            'icon'            => 'format-image',
+            'keywords'        => [ 'advert','image','background' ],
+            'post_types'      => [ 'advert' ],
+            'mode'            => 'preview',
+            'supports'        => [
+                'align' => true,
+                'mode' => false
+            ],
+        ] );
     }
 } );
 
