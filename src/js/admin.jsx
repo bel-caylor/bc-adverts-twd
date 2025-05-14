@@ -57,14 +57,11 @@ if (sessionStorage.getItem('bcad_generate_after_save')) {
 
 // Handle click on the Generate button in the editor overlay.
 document.addEventListener('click', (event) => {
+  // Handle Generate Image button
   if (event.target.id === 'bcad-generate-btn') {
-    // Mark to run generation after save.
     sessionStorage.setItem('bcad_generate_after_save', '1');
-
-    // Save the post.
     dispatch('core/editor').savePost();
 
-    // Reload editor once save completes.
     const unsubscribe = subscribe(() => {
       const isSaving = select('core/editor').isSavingPost();
       const isAutosaving = select('core/editor').isAutosavingPost();
@@ -74,4 +71,21 @@ document.addEventListener('click', (event) => {
       }
     });
   }
+
+  // Handle Refresh button
+  if (event.target.id === 'bcad-refresh-btn') {
+    dispatch('core/editor').savePost();
+  
+    const unsubscribe = subscribe(() => {
+      const isSaving = select('core/editor').isSavingPost();
+      const isAutosaving = select('core/editor').isAutosavingPost();
+      const isDirty = select('core/editor').isEditedPostDirty();
+  
+      if (!isSaving && !isAutosaving && !isDirty) {
+        unsubscribe();
+        window.location.reload(); // Now safe to reload
+      }
+    });
+  }
+  
 });

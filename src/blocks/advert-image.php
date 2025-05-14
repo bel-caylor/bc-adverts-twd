@@ -23,13 +23,14 @@ $bg_field             = get_field( 'background_image', $post_id, false );
 $image_placement      = get_field( 'image_placement', $post_id ) ?: 'full_overlay';
 $title                = get_field( 'title',           $post_id );
 $subtitle             = get_field( 'sub_title',       $post_id );
+$field_object         = get_field_object( 'type_of_ad',      $post_id );
+$type_of_ad           = $field_object['choices'][ $field_object['value'] ] ?? '';
 $date_time_text       = get_field( 'date_time_text',  $post_id );
 $info_long            = get_field( 'info_long',       $post_id );
 $social_share_buttons = get_field( 'social_share_buttons', $post_id );
 $sign_up_form         = get_field( 'sign_up_form',    $post_id );
 $words_on_image       = get_field( 'words_on_image',  $post_id );
 $word_placement       = get_field( 'word_placement',  $post_id ) ?: 'middle';
-$type_of_ad           = get_field( 'type_of_ad',      $post_id );
 $title_show           = (bool) get_field( 'title_show',    $post_id );
 $sub_title_show       = (bool) get_field( 'sub_title_show',$post_id );
 $date_show            = (bool) get_field( 'date_show',     $post_id );
@@ -87,6 +88,16 @@ switch ( $word_placement ) {
     default:
         $placement_class = 'justify-center';
         break;
+}
+
+// Display Editor Overlay
+if (is_admin()) {
+    echo '<div class="editor-overlay w-full bg-red-700 py-4 mb-2">';
+    echo '<div class="inline text-white">Click refresh to update preview block.</div>';
+    echo '<button id="bcad-refresh-btn" class="button button-primary" style="margin-left:1em;">Refresh</button>';
+    echo '<button id="bcad-generate-btn" class="button button-primary" style="margin-left:1em;">Generate Image</button>';
+    echo '</div>';
+    echo '<div id="bc-image-output"></div>';
 }
 
 // Choose whether overlay or static text block
