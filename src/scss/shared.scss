@@ -1,73 +1,167 @@
+// ============================
+// Hope Church Advert Styles
+// ============================
+
 .advert {
-  @apply flex justify-center items-center min-h-[80vh] mx-10;
+  @apply flex justify-center items-center mx-10 mb-8;
 
   > .wrapper {
-    @apply flex flex-col bg-white rounded-2xl mx-auto items-center justify-between;
-  
+    &:hover {
+      @apply shadow-lg transition-shadow duration-300;
+    }
+    @apply bg-white rounded-2xl overflow-hidden mx-auto;
+    @apply min-w-[95vw] lg:min-w-[80vw] lg:max-h-[80vh];
+    @apply flex flex-col items-stretch justify-between;
+    @apply border border-gray-300 shadow-sm;
+
     @screen md {
       @apply flex-row !important;
     }
   }
+
   &-background {
-    background-image: var(--bcad-bg-url, none);
-    @apply relative w-full h-full bg-cover bg-center rounded-2xl overflow-hidden;
+    @apply min-w-[35%]
   }
-  .image-top img,
-  .image-bottom img {
-    background-image: var(--bcad-bg-url, none);
-  }
-  .overlay-text {
-    @apply absolute text-white text-center p-4;
-    @apply w-full h-full flex flex-col justify-center align-middle;
-    background: rgba(0, 0, 0, 0.5); /* Optional: Add a dark overlay for readability */
-  }
+
   &-image-section {
-    @apply bg-gray-100 aspect-[4/5] w-full min-w-[40%] bg-no-repeat;
+    @apply h-auto w-auto max-h-[90vh] overflow-auto;
   }
+
   &-content-section {
+    container-type: inline-size;
     @apply my-10 text-center px-6;
-  
+    @apply flex flex-col justify-evenly flex-grow justify-center;
+    @apply mx-2 md:mx-8 md:w-[60%];
+
     h3 {
       @apply text-center text-gray-800 font-medium my-2;
     }
-  
+
     h4 {
       @apply text-center text-gray-600 font-medium my-2;
     }
-  
+
     p {
-      @apply text-gray-500 my-2;
+      @apply text-gray-700 my-2;
     }
   }
+
+  &-info {
+    p {
+      font-size: clamp(1rem, 1.5vw, 2rem);
+      line-height: clamp(1.2, 1.5, 1.8);
+    }
+  }
+
+  // Shared text styles
+  .overlay-text,
+  .ad-text {
+    .ad-type {
+      font-size: clamp(0.6rem, 3cqw, 2rem);
+      @apply my-0 uppercase !text-blue-300;
+      @apply font-bold font-sans tracking-widest;
+
+      &::before,
+      &::after {
+        content: '----';
+        @apply tracking-tighter p-4;
+      }
+    }
+
+    .ad-title {
+      font-size: clamp(1.5rem, 8cqw, 5.5rem);
+      @apply my-0 leading-none;
+    }
+
+    .ad-sub-title {
+      font-size: clamp(0.8rem, 4cqw, 2.5rem);
+      @apply italic mb-4;
+    }
+
+    .ad-date {
+      font-size: clamp(1rem, 5cqw, 2.7rem);
+    }
+
+    > *:not(:last-child) {
+      @apply mb-2;
+    }
+  }
+
+  &-content {
+    & > div {
+      container-type: inline-size;
+      @apply flex-grow flex flex-col justify-center;
+    }
+
+    @apply flex flex-col h-full;
+  }
+
   .info-long {
     @apply prose max-w-none text-left mx-auto;
   }
-  
+
   .sign-up-form {
     @apply mt-6;
   }
-  
+
   .share-buttons {
     @apply mt-4;
   }
+
+
 }
+
 .ad-image {
-  @apply h-[1350px] w-[1080px]
-}
-.single-content {
-  .advert {
-    .ad-image {
-      @apply h-auto w-auto
+  &.advert-image-section {
+    container-type: inline-size;
+    @apply bg-gray-100 bg-no-repeat;
+    @apply lg:aspect-[4/5] w-full md:w-auto md:min-w-[40%] md:max-w-[50%];
+    @apply flex flex-col relative overflow-hidden
+  }
+
+  .image-top,
+  .image-bottom {
+    @apply h-full flex flex-col;
+  }
+
+  .image-top img,
+  .image-bottom img,
+  .advert-background {
+    background-image: var(--bcad-bg-url, none);
+  }
+
+  .advert-background {
+    @apply relative w-full h-full;
+    @apply bg-cover bg-center overflow-hidden bg-gray-200;
+  }
+
+  .ad-text {
+    @apply flex flex-col flex-grow justify-center align-middle;
+    @apply px-4 py-8 text-center;
+  }
+
+  .overlay-text {
+    @apply absolute w-full h-full;
+    @apply text-white text-center px-4 py-8 font-bold;
+    @apply flex flex-col align-middle bg-black/40;
+
+    h1, h2, h3, h4, h5, h6 {
+      @apply text-white;
     }
   }
+
 }
-.acf-block-preview {
-  .advert {
-    .ad-image {
-      @apply h-auto w-auto
-    }
+
+.acf-block-preview > .editor-overlay {
+  @apply border-2 border-dashed border-gray-300 bg-gray-50;
+  @apply  w-full bg-red-700 py-4 mb-2 flex justify-center;
+
+  .button {
+    @apply font-bold bg-white text-red-700;
+  }
+
+  .ad-title:empty::before {
+    content: 'Title Placeholder';
+    @apply text-gray-400 italic;
   }
 }
-
-
-  

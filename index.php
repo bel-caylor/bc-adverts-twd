@@ -123,7 +123,12 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
 
     // Clean up any <style> tags & build payload
     $html = preg_replace( '#<style[^>]*>.*?</style>#is', '', $html );
-    $body = [ 'html' => $html, 'css' => $css ];
+    $body = [ 
+        'html' => $html, 
+        'css' => $css, 
+        'width'  => 1080,
+        'height' => 1350,        
+    ];
 
     $response = wp_remote_post(
         'https://hcti.io/v1/image',
@@ -183,7 +188,11 @@ add_action( 'acf/init', function() {
             'keywords'        => [ 'advert','image','background' ],
             'post_types'      => [ 'advert' ],
             'mode'            => 'preview',
-            'supports'        => [ 'align' => true, 'mode' => false ],
+            'supports'        => [
+                'align' => true,
+                'mode' => false
+            ],
         ] );
     }
 } );
+
