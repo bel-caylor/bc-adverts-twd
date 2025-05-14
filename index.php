@@ -153,11 +153,6 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
     ' . $htmlFragment . '
     </body>
     </html>';
-    $body = [ 
-        'html' => $html, 
-        'viewport_width'  => 1080,
-        'viewport_height' => 1350,        
-    ];
     
     $response = wp_remote_post(
         'https://hcti.io/v1/image',
@@ -166,7 +161,11 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
                 'Authorization' => 'Basic ' . base64_encode( "$user:$key" ),
                 'Content-Type'  => 'application/json',
             ],
-            'body'    => wp_json_encode( $body ),
+            'json'    => [
+                'html'            => $html,
+                'viewport_width'  => 1080,
+                'viewport_height' => 1350,
+            ],
         ]
     );
 
