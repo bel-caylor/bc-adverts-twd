@@ -136,9 +136,9 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
           overflow: hidden;
         }
         .advert-image-section {
-          position: relative;
-          width: 100%;
-          height: 100%;
+            position: relative !important;
+            width: 100%       !important;
+            height: 100%      !important;
         }
         .advert-background,
         .gradient-overlay {
