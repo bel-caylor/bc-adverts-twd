@@ -127,32 +127,36 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
     <html>
     <head>
       <meta charset="utf-8">
-      <style>
-        html, body {
-            margin:0; padding:0;
-            width:100vw; height:100vh;
-            overflow:hidden;
-        }
-
-        .advert-image-section {
-            position: relative    !important;
-            width: 100%           !important;
-            height: 100%          !important;
-            max-width: none       !important;
-            margin: 0             !important;
-            padding: 0            !important;
-        }
-
-        .container,
-        .mx-auto,
-            [class*="max-w-"] {
-                max-width: none       !important;
-                width: auto           !important;
-                margin: 0             !important;
-        }
-      </style>
       <link rel="stylesheet"
             href="https://hopeisrealstg.wpenginepowered.com/wp-content/plugins/bc-adverts-twd/build/assets/main.css">
+        <style>
+            html, body {
+                margin:0; padding:0;
+                width:100vw; height:100vh;
+                overflow:hidden;
+            }
+            .advert-image-section {
+                position:relative    !important;
+                width:100%           !important;
+                height:100%          !important;
+                max-width:none       !important;
+                margin:0             !important;
+                padding:0            !important;
+            }
+            .advert-background {
+                position:absolute    !important;
+                inset:0              !important;
+                width:100%           !important;
+                height:100%          !important;
+                background-size:cover        !important;
+                background-position:center   !important;
+                background-image:var(--bcad-bg-url) !important;
+            }
+            .gradient-overlay {
+                position:absolute    !important;
+                inset:0              !important;
+            }
+        </style>
     </head>
     <body class="bg-white">
       ' . $htmlFragment . '
