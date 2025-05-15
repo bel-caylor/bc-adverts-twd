@@ -127,6 +127,10 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
     <html>
     <head>
     <meta charset="utf-8">
+    <link rel="stylesheet"
+    href="https://hopeisrealstg.wpenginepowered.com/wp-content/plugins/bc-adverts-twd/build/assets/main.css">
+    </head>
+    <body class="bg-white">
     <style>
         html, body {
             margin: 0; 
@@ -137,8 +141,8 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
         }
         .advert-image-section {
             position: relative;
-            width: 100%; 
-            height: 100%;
+            width: 2160px; 
+            height: 2700px;
         }
         .advert-background,
         .gradient-overlay {
@@ -146,17 +150,13 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
             inset: 0;
         }
     </style>
-    <link rel="stylesheet"
-    href="' . BCAD_PLUGIN_URL . 'build/assets/main.css">
-    </head>
-    <body class="bg-white">
     ' . $htmlFragment . '
     </body>
     </html>';
     $body = [ 
         'html' => $html, 
         'viewport_width'  => 1080,
-        'viewport_height' => 1350, 
+        'viewport_height' => 1350,
         'device_scale' => 1,
     ];
     
