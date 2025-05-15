@@ -129,21 +129,26 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
       <meta charset="utf-8">
       <style>
         html, body {
-          margin: 0;
-          padding: 0;
-          width: 100vw;
-          height: 100vh;
-          overflow: hidden;
+            margin:0; padding:0;
+            width:100vw; height:100vh;
+            overflow:hidden;
         }
+
         .advert-image-section {
-            position: relative !important;
-            width: 100%       !important;
-            height: 100%      !important;
+            position: relative    !important;
+            width: 100%           !important;
+            height: 100%          !important;
+            max-width: none       !important;
+            margin: 0             !important;
+            padding: 0            !important;
         }
-        .advert-background,
-        .gradient-overlay {
-          position: absolute;
-          inset: 0;
+
+        .container,
+        .mx-auto,
+            [class*="max-w-"] {
+                max-width: none       !important;
+                width: auto           !important;
+                margin: 0             !important;
         }
       </style>
       <link rel="stylesheet"
