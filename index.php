@@ -126,33 +126,33 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
     <!doctype html>
     <html>
     <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet"
-    href="https://hopeisrealstg.wpenginepowered.com/wp-content/plugins/bc-adverts-twd/build/assets/main.css">
-    </head>
-    <body class="bg-white">
-    <style>
+      <meta charset="utf-8">
+      <style>
         html, body {
-            margin: 0; 
-            padding: 0; 
-            width: 100%; 
-            height: 100%;
-            overflow: hidden;
+          margin: 0;
+          padding: 0;
+          width: 100vw;
+          height: 100vh;
+          overflow: hidden;
         }
         .advert-image-section {
-            position: relative;
-            width: 2160px; 
-            height: 2700px;
+          position: relative;
+          width: 100%;
+          height: 100%;
         }
         .advert-background,
         .gradient-overlay {
-            position: absolute;
-            inset: 0;
+          position: absolute;
+          inset: 0;
         }
-    </style>
-    ' . $htmlFragment . '
+      </style>
+      <link rel="stylesheet"
+            href="https://hopeisrealstg.wpenginepowered.com/wp-content/plugins/bc-adverts-twd/build/assets/main.css">
+    </head>
+    <body class="bg-white">
+      ' . $htmlFragment . '
     </body>
-    </html>';
+    </html>';    
     $body = [ 
         'html' => $html, 
         'viewport_width'  => 1080,
