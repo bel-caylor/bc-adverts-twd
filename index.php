@@ -143,7 +143,7 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
                 margin:0             !important;
                 padding:0            !important;
             }
-            .advert-background {
+            .advert-image-section img {
                 position:absolute    !important;
                 inset:0              !important;
                 width:100%           !important;
@@ -151,6 +151,16 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
                 background-size:cover        !important;
                 background-position:center   !important;
                 background-image:var(--bcad-bg-url) !important;
+            }
+            .advert-image-section.ad-image > .overlay-text {
+                position:absolute    !important;
+                inset:0              !important;
+                display:flex         !important;
+                flex-direction:column!important;
+                justify-content:flex-end!important;
+                align-items:center   !important;
+                padding:1rem         !important;
+                box-sizing:border-box!important;
             }
             .gradient-overlay {
                 position:absolute    !important;
@@ -202,11 +212,13 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
     
     foreach ( $attachments as $att ) {
         $file_path = get_attached_file( $att->ID );
-        if ( basename( $file_path ) === "advert-{$post_id}.png" ) {
-        // true = force delete (bypass trash)
-        wp_delete_attachment( $att->ID, true );
+        $file_name = basename( $file_path );
+    
+        if ( preg_match( "/^advert-{$post_id}(-\d+)?\.png$/", $file_name ) ) {
+            wp_delete_attachment( $att->ID, true );
         }
     }
+    
 
     // Sideload & set featured image…
     require_once ABSPATH . 'wp-admin/includes/file.php';
