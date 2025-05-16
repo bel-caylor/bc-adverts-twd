@@ -110,7 +110,7 @@ $ad_fields_class = $image_placement === 'full_overlay' ? 'overlay-text' : 'ad-te
         <div class="advert-image-section ad-image 
             <?php echo ($image_placement === 'bottom_contain') ? '!flex-col-reverse' : '' ?>"
         >
-          <!-- <?php
+          <?php
             // Responsive <img> with lazy-loading & alt text
             $img_class = sprintf(
                 'w-full %s object-cover',
@@ -127,8 +127,8 @@ $ad_fields_class = $image_placement === 'full_overlay' ? 'overlay-text' : 'ad-te
                 'class'   => esc_attr( $img_class ),
               ]
             );
-          ?> -->
-          <img decoding="async" width="683" height="1024" class="w-full h-full object-cover lazyloaded" alt="Necklace with Cross on a Book" src="https://hopeisrealstg.wpenginepowered.com/wp-content/uploads/2024/01/necklace-with-cross-on-a-book-5199806-683x1024.jpg" style="--smush-placeholder-width: 683px; --smush-placeholder-aspect-ratio: 683/1024;">
+          ?>
+          <!-- <img decoding="async" width="683" height="1024" class="w-full h-full object-cover lazyloaded" alt="Necklace with Cross on a Book" src="https://hopeisrealstg.wpenginepowered.com/wp-content/uploads/2024/01/necklace-with-cross-on-a-book-5199806-683x1024.jpg" style="--smush-placeholder-width: 683px; --smush-placeholder-aspect-ratio: 683/1024;"> -->
           <div class="<?php echo esc_attr( $placement_class . ' ' . $gradient_class ); ?> 
             <?php echo esc_attr( "flex flex-col $ad_fields_class $placement_class items-center text-center p-4" ); ?>"
           >
