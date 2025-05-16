@@ -138,12 +138,12 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
             .advert-image-section {
                 position:relative    !important;
                 width:100%           !important;
-                height:100%          !important;
+                height:1350px        !important;
                 max-width:none       !important;
                 margin:0             !important;
                 padding:0            !important;
             }
-            .advert-image-section img {
+            .advert-image-section img.h-full {
                 position:absolute    !important;
                 inset:0              !important;
                 background-size:cover        !important;
