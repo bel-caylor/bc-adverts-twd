@@ -146,8 +146,6 @@ add_action( 'wp_ajax_bc_generate_advert_image', function() {
             .advert-image-section img {
                 position:absolute    !important;
                 inset:0              !important;
-                width:100%           !important;
-                height:100%          !important;
                 background-size:cover        !important;
                 background-position:center   !important;
                 background-image:var(--bcad-bg-url) !important;
